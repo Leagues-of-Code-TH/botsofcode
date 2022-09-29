@@ -27,7 +27,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
-          platforms: linux/armv7
+          platforms: linux/arm/v7
           push: true
           tags: pathonscript/bot:latest
