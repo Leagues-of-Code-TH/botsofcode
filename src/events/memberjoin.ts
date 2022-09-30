@@ -18,11 +18,12 @@ export class MemberJoin {
         .setTitle("New Member")
         .setDescription(
           `Welcome ${member.user.username} to the Leagues of Code \n` +
-            "Use `/rolemenu` to choose your pings and languages roles\n" +
+            "Select your class using `/somecommand` before interacting with the server\n" +
             "Enjoy your stay!"
         );
 
       welcomeChannel.send({
+        content: `<@${member.user.id}>`,
         embeds: [welcomeMessageEmbed],
       });
     }
