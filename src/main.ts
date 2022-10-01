@@ -44,7 +44,7 @@ bot.once("ready", async () => {
   //    ...bot.guilds.cache.map((g) => g.id)
   //  );
 
-  console.log("Bot started");
+  console.log(`Logged in as ${bot.user!.tag}`);
 });
 
 bot.on("interactionCreate", (interaction: Interaction) => {
@@ -59,7 +59,7 @@ async function run() {
   // The following syntax should be used in the commonjs environment
   //
   // await importx(__dirname + "/{events,commands}/**/*.{ts,js}");
- 
+
   // The following syntax should be used in the ECMAScript environment
   await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
 

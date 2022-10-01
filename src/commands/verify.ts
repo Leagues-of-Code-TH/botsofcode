@@ -4,6 +4,7 @@ import type {
   GuildMember,
   MessageActionRowComponentBuilder,
   User,
+  TextChannel,
 } from "discord.js";
 import {
   ActionRowBuilder,
