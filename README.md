@@ -23,6 +23,8 @@ npm run start
 
 To start your application:
 
+**Remember to replace the `ENV` in Dockerfile
+
 ```
 docker-compose up -d
 ```
