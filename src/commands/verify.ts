@@ -21,7 +21,7 @@ export class Command {
     description: "Verify yourself and join Leagues of Code!",
   })
   async verify(interaction: CommandInteraction): Promise<void> {
-    await interaction.deferReply();
+    await interaction.deferReply({ ephemeral: true });
 
     const PythonButton = new ButtonBuilder()
       .setLabel("Python")
@@ -49,15 +49,17 @@ export class Command {
 
   @ButtonComponent({ id: "python" })
   PythonButton(interaction: ButtonInteraction): void {
-    interaction.reply(
-      `<:python:1025584887337590834> Python! ${interaction.member}`
-    );
+    interaction.reply({
+      ephemeral: true,
+      content: `You've sent a verification request of **Python**<:python:1025584887337590834>! ${interaction.member}\nWait for an admin to approve your request.`,
+    });
   }
 
   @ButtonComponent({ id: "cplus" })
   CplusButton(interaction: ButtonInteraction): void {
-    interaction.reply(
-      `<:cplus:1025584885034913802> C++! ${interaction.member}`
-    );
+    interaction.reply({
+      ephemeral: true,
+      content: `You've sent a verification request of **C++**<:cplus:1025584885034913802>! ${interaction.member}\nWait for an admin to approve your request.`,
+    });
   }
 }
