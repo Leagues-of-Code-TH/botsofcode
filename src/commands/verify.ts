@@ -22,12 +22,6 @@ const prisma = new PrismaClient();
 
 @Discord()
 export class Command {
-  name: string;
-
-  constructor(name: string) {
-    this.name = name;
-  }
-
   @Slash({
     name: "verify",
     description: "Verify yourself and join Leagues of Code!",
@@ -42,8 +36,6 @@ export class Command {
     name: string | undefined,
     interaction: CommandInteraction
   ): Promise<void> {
-    this.name = name!;
-
     await interaction.deferReply({ ephemeral: true });
 
     // Class Buttons
@@ -67,7 +59,7 @@ export class Command {
       );
 
     // Save / Updatename to DB
-    const upsertVerify = await prisma.verifyData.upsert({
+    const upsertVerify = await prisma.studentData.upsert({
       where: {
         discordId: interaction.user.id,
       },
@@ -90,19 +82,50 @@ export class Command {
   }
 
   // Events after button press
+  // Clear this repeating junk
   @ButtonComponent({ id: "python" })
-  PythonButton(interaction: ButtonInteraction): void {
-    interaction.reply({
+  async PythonButton(interaction: ButtonInteraction): Promise<void> {
+    const getData = await prisma.studentData.findUnique({
+      where: {
+        discordId: interaction.user.id,
+      },
+    });
+
+    await interaction.reply({
       ephemeral: true,
-      content: `***${this.name}***, you've sent a verification request of **Python**<:python:1025584887337590834>! ${interaction.member}\nWait for an admin to approve your request.`,
+      content: `***${getData?.realName}***, you've sent a verification request of **Python**<:python:1025584887337590834>! ${interaction.member}\nWait for an admin to approve your request.`,
+    });
+
+    await prisma.studentData.update({
+      where: {
+        discordId: interaction.user.id,
+      },
+      data: {
+        course: "Python",
+      },
     });
   }
 
   @ButtonComponent({ id: "cplus" })
-  CplusButton(interaction: ButtonInteraction): void {
-    interaction.reply({
+  async CplusButton(interaction: ButtonInteraction): Promise<void> {
+    const getData = await prisma.studentData.findUnique({
+      where: {
+        discordId: interaction.user.id,
+      },
+    });
+
+    await interaction.reply({
       ephemeral: true,
-      content: `***${this.name}***, you've sent a verification request of **C++**<:cplus:1025584885034913802>! ${interaction.member}\nWait for an admin to approve your request.`,
+      content: `***${getData?.realName}***, you've sent a verification request of **C++**<:cplus:1025584885034913802>! ${interaction.member}\nWait for an admin to approve your request.`,
+    });
+
+    await prisma.studentData.update({
+      where: {
+        discordId: interaction.user.id,
+      },
+      data: {
+        course: "C++",
+      },
     });
   }
 }

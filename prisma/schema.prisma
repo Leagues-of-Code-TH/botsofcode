@@ -10,9 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model VerifyData {
+model studentData {
   discordId String   @unique @db.VarChar(18)
+  realName  String
+  course    String?
   ID        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  realName  String
 }
