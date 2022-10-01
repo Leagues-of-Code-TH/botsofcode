@@ -6,13 +6,19 @@ import type {
   User,
   TextChannel,
 } from "discord.js";
+
 import {
   ActionRowBuilder,
   ApplicationCommandOptionType,
   ButtonBuilder,
   ButtonStyle,
 } from "discord.js";
+
 import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
+
+import { PrismaClient } from "@prisma/client";
+import { exists } from "fs";
+const prisma = new PrismaClient();
 
 @Discord()
 export class Command {
@@ -59,6 +65,22 @@ export class Command {
         PythonButton,
         CplusButton
       );
+
+    // Save / Updatename to DB
+    const upsertVerify = await prisma.verifyData.upsert({
+      where: {
+        discordId: interaction.user.id,
+      },
+      update: {
+        realName: name,
+      },
+      create: {
+        discordId: interaction.user.id,
+        realName: name!,
+      },
+    });
+
+    console.log(upsertVerify);
 
     // Selector
     await interaction.editReply({
