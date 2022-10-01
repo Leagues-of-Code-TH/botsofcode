@@ -23,7 +23,9 @@ FROM node:lts-alpine as prod-runner
 # Set work directory
 WORKDIR /app
 
-ENV BOT_TOKEN=YOUR_BOT_TOKEN
+ENV BOT_TOKEN=
+ENV WELCOME_CHANNEL=
+ENV ADMIN_CHANNEL=
 
 # Copy package.json from build-runner
 COPY --from=build-runner /tmp/app/package.json /app/package.json
