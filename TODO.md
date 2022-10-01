@@ -1,4 +1,4 @@
-- [ ] Name is shared on process
-  - [ ] Store `uid: realname`   
-  - [ ] Query when button is pressed
+- [x] Name is shared on process
+  - [x] Store `uid: realname`   
+  - [x] Query when button is pressed
   - [ ] Send realname + class to channel
