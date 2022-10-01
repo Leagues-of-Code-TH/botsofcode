@@ -6,11 +6,11 @@ import { Discord, On } from "discordx";
 export class MemberJoin {
   @On()
   guildMemberAdd([member]: ArgsOf<"guildMemberAdd">, client: Client): void {
-    const welcomeChannelId = "1025383372299710464";
+    const welcomeChannelId = process.env.WELCOME_CHANNEL;
 
     if (welcomeChannelId !== null) {
       const welcomeChannel = client.channels.cache.get(
-        welcomeChannelId
+        welcomeChannelId!
       ) as TextChannel;
 
       const welcomeMessageEmbed = new EmbedBuilder()
@@ -18,7 +18,7 @@ export class MemberJoin {
         .setTitle("New Member")
         .setDescription(
           `Welcome ${member.user.username} to the Leagues of Code \n` +
-            "Select your class using `/somecommand` before interacting with the server\n" +
+            "Select your class using </verify:1025587115792281660> before interacting with the server\n" +
             "Enjoy your stay!"
         );
 
