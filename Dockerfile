@@ -8,9 +8,11 @@ RUN npm install
 FROM base AS build
 
 COPY . /opt/app
+
 RUN sh ./scripts/build.sh
 
 FROM base as production
 
 COPY . .
+
 CMD sh ./scripts/start.sh

@@ -1,5 +1,5 @@
-- [ ] [docker-compose postgresql db](https://www.section.io/engineering-education/dockerized-prisma-postgres-api/)
+- [X] [docker-compose postgresql db](https://www.section.io/engineering-education/dockerized-prisma-postgres-api/)
 - [x] Name is shared on process
   - [x] Store `uid: realname`   
   - [x] Query when button is pressed
-  - [ ] Send realname + class to channel
+- [ ] Send realname + class to channel
