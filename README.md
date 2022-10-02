@@ -1,5 +1,7 @@
-# 🏗 Development
+# A Discord for managing Leagues of Code's Discord Server
+---
 
+# 🏗 Development
 ```
 npm install
 npm run dev
