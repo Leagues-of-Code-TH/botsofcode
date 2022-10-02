@@ -1,21 +1,18 @@
-version: "3"
 services:
-  app:
-    build: .
-    command: node build/main.js
-    environment:
-      - BOT_TOKEN=${BOT_TOKEN}
+  postgres:
+      image: postgres:14.2-alpine
+      environment:
+          - POSTGRES_PASSWORD=postgres
+          - PGDATA=/var/lib/postgresql/data/pgdata
+      volumes:
+          - "bots-data:/var/lib/postgresql/data/pgdata"
 
-
-  db:
-    image: postgres:14.5-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5432:5432'
-    volumes: 
-      - botsofcode:/var/lib/postgresql/data
+  botsofcode:
+      build: .
+      env_file:
+          - .env
+      restart: always
+      links:
+          - postgres
 volumes:
-  botsofcode: {}
+    bots-data: {}
