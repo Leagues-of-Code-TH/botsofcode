@@ -1,5 +1,20 @@
-- [X] [docker-compose postgresql db](https://www.section.io/engineering-education/dockerized-prisma-postgres-api/)
-- [x] Name is shared on process
-  - [x] Store `uid: realname`   
-  - [x] Query when button is pressed
+# Todo list
+This file is for marking things to do. Pat always forget what to do.
+
+## Announce Command (`title`, `description`)
+- [ ] Get input
+- Send announcement to channel
+
+## Poll Command (`title`, `optinal args**`)
+- [ ] Get input
+- [ ] Send announcement to channel
+- [ ] Add reactions
+
+## Verify Command
+- [ ] Use redis for caching user verify
+  - [ ] Connect with `docker-compose`
+  - [ ] Store `uid: realname`   
+  - [ ] Query when button is pressed
 - [ ] Send realname + class to channel
+
+

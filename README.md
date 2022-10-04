@@ -1,10 +1,22 @@
-# A Discord for managing Leagues of Code's Discord Server
----
+<div align="center">
+<h1>BotsOfCode 
+<img src="images/loc.jpg" alt="drawing" width="30"/>
+</h1>
+
+
+A discord bot for managing tasks on 
+[Leagues of Code's Discord Server](https://www.leaguesofcode.com/th)
+</div>
 
 # 🏗 Development
+You'll need a redis database otherwise use [Docker Compose](#🐋-docker)
+
+check out the `.env` file and replace everything with your own configuration
+
+
 ```
 npm install
-npm run dev
+npm run dev 
 ```
 
 If you want to use [Nodemon](https://nodemon.io/) to auto-reload while in development:
@@ -25,7 +37,6 @@ npm run start
 
 To start your application:
 
-**Remember to replace the `ENV` in Dockerfile
 
 ```
 docker-compose up -d
@@ -49,13 +60,3 @@ For the full command list please view the [Docker Documentation](https://docs.do
 
 - [discordx.js.org](https://discordx.js.org)
 - [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
-
-# ☎️ Need help?
-
-- [Check frequently asked questions](https://discordx.js.org/docs/faq)
-- [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
-- Ask in the community [Discord server](https://discordx.js.org/discord)
-
-# 💖 Thank you
-
-You can support [discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/oceanroleplay/discord.ts) star.
