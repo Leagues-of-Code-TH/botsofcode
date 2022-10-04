@@ -3,7 +3,7 @@ This file is for marking things to do. Pat always forget what to do.
 
 ## Announce Command (`title`, `description`)
 - [ ] Get input
-- Send announcement to channel
+- [ ] Send announcement to channel
 
 ## Poll Command (`title`, `optinal args**`)
 - [ ] Get input

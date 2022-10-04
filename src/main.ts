@@ -20,6 +20,10 @@ export const bot = new Client({
     IntentsBitField.Flags.GuildVoiceStates,
   ],
 
+  allowedMentions: {
+    parse: ["users", "everyone", "roles"],
+    repliedUser: false,
+  },
   // Debug logs are disabled in silent mode
   silent: false,
 
