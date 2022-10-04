@@ -2,8 +2,8 @@
 This file is for marking things to do. Pat always forget what to do.
 
 ## Announce Command (`title`, `description`)
-- [ ] Get input
-- [ ] Send announcement to channel
+- [X] Get input (used modal)
+- [X] Send announcement to channel (reply with @everyone)
 
 ## Poll Command (`title`, `optinal args**`)
 - [ ] Get input
