@@ -10,6 +10,8 @@ This file is for marking things to do. Pat always forget what to do.
 - [ ] Use redis for caching user verify
   - [ ] Connect with `docker-compose`
   - [ ] Store `uid: realname`   
+    - [ ] TTL redis starts with commmand
+    - [ ] command expires
   - [ ] Query when button is pressed
 - [ ] Send realname + class to channel
 
