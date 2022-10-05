@@ -6,44 +6,58 @@ import {
   ActionRowBuilder,
   ModalSubmitInteraction,
   EmbedBuilder,
+  GuildMember,
 } from "discord.js";
 import { Discord, Slash, ModalComponent } from "discordx";
 
 @Discord()
-class Example {
+class Admin {
   @Slash({ name: "announce", description: "create an announcement (admin)" })
-  modal(interaction: CommandInteraction): void {
+  announce(interaction: CommandInteraction): void {
     // Create the modal
-    const modal = new ModalBuilder()
-      .setTitle("Create an announcement")
-      .setCustomId("AwesomeForm");
+    const member = interaction.member as GuildMember;
 
-    // Create text input fields
-    const titleComponent = new TextInputBuilder()
-      .setCustomId("titleField")
-      .setLabel("Title of the announcement")
-      .setStyle(TextInputStyle.Short);
+    if (member.permissions.has("Administrator")) {
+      const modal = new ModalBuilder()
+        .setTitle("Create an announcement")
+        .setCustomId("AwesomeForm");
 
-    const contentComponent = new TextInputBuilder()
-      .setCustomId("contentField")
-      .setLabel("Content of the announcement")
-      .setStyle(TextInputStyle.Paragraph);
+      // Create text input fields
+      const titleComponent = new TextInputBuilder()
+        .setCustomId("titleField")
+        .setLabel("Title of the announcement")
+        .setStyle(TextInputStyle.Short);
 
-    const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      titleComponent
-    );
+      const contentComponent = new TextInputBuilder()
+        .setCustomId("contentField")
+        .setLabel("Content of the announcement")
+        .setStyle(TextInputStyle.Paragraph);
 
-    const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      contentComponent
-    );
+      const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
+        titleComponent
+      );
 
-    // Add action rows to form
-    modal.addComponents(row1, row2);
+      const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
+        contentComponent
+      );
 
-    // --- snip ---
+      // Add action rows to form
+      modal.addComponents(row1, row2);
 
-    // Present the modal to the user
-    interaction.showModal(modal);
+      // --- snip ---
+
+      // Present the modal to the user
+      interaction.showModal(modal);
+    } else {
+      const NoPermsEmbed = new EmbedBuilder()
+        .setTitle("No Permissions")
+        .setColor("Red")
+        .setDescription(
+          "You have insufficient permissions to use this command."
+        );
+
+      interaction.reply({ ephemeral: true, embeds: [NoPermsEmbed] });
+    }
   }
 
   @ModalComponent()
