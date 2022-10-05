@@ -1,6 +1,8 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
+- [ ] Build and run on Raspberry Pi
+
 ## Verify Command
 - [ ] Use redis for caching user verify
   - [ ] Connect with `docker-compose`
