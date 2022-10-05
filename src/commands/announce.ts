@@ -11,9 +11,9 @@ import {
 import { Discord, Slash, ModalComponent } from "discordx";
 
 @Discord()
-class Example {
+class Admin {
   @Slash({ name: "announce", description: "create an announcement (admin)" })
-  modal(interaction: CommandInteraction): void {
+  announce(interaction: CommandInteraction): void {
     // Create the modal
     const member = interaction.member as GuildMember;
 
