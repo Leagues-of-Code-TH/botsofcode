@@ -1,7 +1,7 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
-- [ ] Build and run on Raspberry Pi
+- [ ] Removed unused commands
 
 ## Verify Command
 - [ ] Use redis for caching user verify
@@ -9,7 +9,7 @@ This file is for marking things to do. Pat always forget what to do.
   - [ ] Store `uid: realname`   
     - [ ] TTL redis starts with commmand
     - [ ] command expires
-  - [ ] Query when button is pressed
+  - [ ] Query (💀this here) when button is pressed
 - [ ] Send realname + class to channel
 
 ## ~~Poll Command~~ (`title`, `optinal args**`)
@@ -21,3 +21,4 @@ This file is for marking things to do. Pat always forget what to do.
 - [X] Get input (used modal)
 - [X] Send announcement to channel (reply with @everyone)
 
+- [X] Build and run on Raspberry Pi
