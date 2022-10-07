@@ -1,5 +1,5 @@
 import { dirname, importx } from "@discordx/importer";
-import type { Interaction, Message } from "discord.js";
+import { ActivityType, Interaction, Message } from "discord.js";
 import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
@@ -47,6 +47,16 @@ bot.once("ready", async () => {
   //  await bot.clearApplicationCommands(
   //    ...bot.guilds.cache.map((g) => g.id)
   //  );
+  bot.user?.setPresence({
+    status: "online",
+    activities: [
+      {
+        name: "Leagues of Code TH",
+        type: ActivityType.Watching,
+        url: "www.leaguesofcode.com/th",
+      },
+    ],
+  });
 
   console.log(`Logged in as ${bot.user!.tag}`);
 });
@@ -74,6 +84,8 @@ async function run() {
 
   // Log in with your bot token
   await bot.login(process.env.BOT_TOKEN);
+
+  // Bot Activity
 }
 
 run();
