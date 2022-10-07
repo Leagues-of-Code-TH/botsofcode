@@ -1,18 +1,38 @@
-FROM node:18-alpine AS base
+## build runner
+FROM node:lts-alpine as build-runner
 
-WORKDIR /opt/app
-COPY package.json /opt/app
+# Set temp directory
+WORKDIR /tmp/app
 
+# Move package.json
+COPY package.json .
+COPY .env .env
+
+# Install dependencies
 RUN npm install
 
-FROM base AS build
+# Move source files
+COPY src ./src
+COPY tsconfig.json   .
 
-COPY . /opt/app
+# Build project
+RUN npm run build
 
-RUN sh ./scripts/build.sh
+## producation runner
+FROM node:lts-alpine as prod-runner
 
-FROM base as production
+# Set work directory
+WORKDIR /app
 
-COPY . .
+# Copy package.json from build-runner
+COPY .env .env
+COPY --from=build-runner /tmp/app/package.json /app/package.json
 
-CMD sh ./scripts/start.sh
+# Install dependencies
+RUN npm install --only=production
+
+# Move build files
+COPY --from=build-runner /tmp/app/build /app/build
+
+# Start bot
+CMD [ "npm", "run", "start" ]

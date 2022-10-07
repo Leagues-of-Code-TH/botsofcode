@@ -1,18 +1,13 @@
 services:
-  postgres:
-      image: postgres:14.2-alpine
-      environment:
-          - POSTGRES_PASSWORD=postgres
-          - PGDATA=/var/lib/postgresql/data/pgdata
-      volumes:
-          - "bots-data:/var/lib/postgresql/data/pgdata"
-
   botsofcode:
-      build: .
-      env_file:
-          - .env
-      restart: always
-      links:
-          - postgres
-volumes:
-    bots-data: {}
+    platform: linux/arm/v7
+    build: .
+    env_file:
+        - .env
+    restart: always
+  
+  redis:
+    image: redis
+    
+# volumes:
+    # bots-data: {}
