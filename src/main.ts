@@ -48,7 +48,7 @@ bot.once("ready", async () => {
   //    ...bot.guilds.cache.map((g) => g.id)
   //  );
 
-  await bot.user?.setActivity("Leagues of Code server", {
+  await bot.user?.setActivity("Leagues of Code TH", {
     type: ActivityType.Watching,
     url: "https://www.leaguesofcode.com/th",
   });
