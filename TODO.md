@@ -1,8 +1,6 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
-- [ ] Removed unused commands
-
 ## Verify Command
 - [ ] Use redis for caching user verify
   - [ ] Connect with `docker-compose`
@@ -10,6 +8,8 @@ This file is for marking things to do. Pat always forget what to do.
     - [ ] TTL redis starts with commmand
     - [ ] command expires
   - [ ] Query (💀this here) when button is pressed
+- [ ] Give role
+- [ ] Store `completed: true`
 - [ ] Send realname + class to channel
 
 ## ~~Poll Command~~ (`title`, `optinal args**`)
@@ -22,3 +22,5 @@ This file is for marking things to do. Pat always forget what to do.
 - [X] Send announcement to channel (reply with @everyone)
 
 - [X] Build and run on Raspberry Pi
+- [X] Removed unused commands
+- [X] Fix Discord bot status
