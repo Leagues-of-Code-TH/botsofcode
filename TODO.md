@@ -10,6 +10,8 @@ This file is for marking things to do. Pat always forget what to do.
     - [ ] TTL redis starts with commmand
     - [ ] command expires
   - [ ] Query (💀this here) when button is pressed
+- [ ] Give role
+- [ ] Store `completed: true`
 - [ ] Send realname + class to channel
 
 ## ~~Poll Command~~ (`title`, `optinal args**`)

@@ -47,16 +47,6 @@ bot.once("ready", async () => {
   //  await bot.clearApplicationCommands(
   //    ...bot.guilds.cache.map((g) => g.id)
   //  );
-  bot.user?.setPresence({
-    status: "online",
-    activities: [
-      {
-        name: "Leagues of Code TH",
-        type: ActivityType.Watching,
-        url: "www.leaguesofcode.com/th",
-      },
-    ],
-  });
 
   console.log(`Logged in as ${bot.user!.tag}`);
 });
@@ -67,6 +57,11 @@ bot.on("interactionCreate", (interaction: Interaction) => {
 
 bot.on("messageCreate", (message: Message) => {
   bot.executeCommand(message);
+});
+
+bot.user?.setActivity("Leagues of Code server", {
+  type: ActivityType.Watching,
+  url: "https://www.leaguesofcode.com/th",
 });
 
 async function run() {
