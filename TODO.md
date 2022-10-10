@@ -1,7 +1,7 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
-- [ ] Removed unused commands
+- [ ] Fix Discord bot status
 
 ## Verify Command
 - [ ] Use redis for caching user verify
@@ -22,3 +22,4 @@ This file is for marking things to do. Pat always forget what to do.
 - [X] Send announcement to channel (reply with @everyone)
 
 - [X] Build and run on Raspberry Pi
+- [X] Removed unused commands
