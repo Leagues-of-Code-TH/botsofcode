@@ -30,7 +30,7 @@ class Admin {
 
       const contentComponent = new TextInputBuilder()
         .setCustomId("contentField")
-        .setLabel("Content of the announcement")
+        .setLabel("Content of the announcement ( Supports Markdown )")
         .setStyle(TextInputStyle.Paragraph);
 
       const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(

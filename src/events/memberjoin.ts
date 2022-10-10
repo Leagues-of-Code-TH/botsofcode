@@ -18,7 +18,7 @@ export class MemberJoin {
         .setTitle("New Member")
         .setDescription(
           `Welcome ${member.user.username} to the Leagues of Code \n` +
-            "Select your class using </verify:1025587115792281660> before interacting with the server\n" +
+            "You can select your class using </verify:1025587115792281660> if you have purchased a course!\n" +
             "Enjoy your stay!"
         );
 

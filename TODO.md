@@ -1,8 +1,6 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
-- [ ] Fix Discord bot status
-
 ## Verify Command
 - [ ] Use redis for caching user verify
   - [ ] Connect with `docker-compose`
@@ -25,3 +23,4 @@ This file is for marking things to do. Pat always forget what to do.
 
 - [X] Build and run on Raspberry Pi
 - [X] Removed unused commands
+- [X] Fix Discord bot status
