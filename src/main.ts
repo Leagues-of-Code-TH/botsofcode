@@ -4,7 +4,6 @@ import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
 import dotenv from "dotenv";
-
 dotenv.config();
 
 export const bot = new Client({
