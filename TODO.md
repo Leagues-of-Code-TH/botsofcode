@@ -4,6 +4,7 @@ This file is for marking things to do. Pat always forget what to do.
 ## General
 - [ ] Change `/verify` to verify with email instead of real name
 - [ ] Update document if it already exists **important**
+- [ ] Delete button selection when successfully verified 
 
 ## Verify Command
 - [X] Use redis for caching user verify

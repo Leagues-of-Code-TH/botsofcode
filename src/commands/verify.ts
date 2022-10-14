@@ -19,15 +19,20 @@ import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
 import { createStudent, findStudentById } from "../lib/redis.js";
 import { verifyStudent } from "../lib/sheets.js";
+import { bot as client } from "../main.js";
 
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
-  .setDescription("Please try using the command again or contact the staffs.")
+  .setDescription(
+    "Your name doesn't match with the course in our Database.\nIf you believe this is an error, please contact a staff."
+  )
   .setColor("#f36c60");
 
 const expiredEmbed = new EmbedBuilder()
   .setTitle("Command Expired")
-  .setDescription("Please use the command again")
+  .setDescription(
+    "You've used this command for too long. Please try again.\nIf you believe this is an error, please contact a staff."
+  )
   .setColor("#f36c60");
 
 @Discord()
@@ -38,40 +43,50 @@ export class Command {
   })
   async verify(
     @SlashOption({
-      description: "Enter your real name",
-      name: "name",
+      description: "Enter your email",
+      name: "email",
       required: true,
       type: ApplicationCommandOptionType.String,
     })
-    name: string | undefined,
+    email: string | undefined,
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: true });
 
     // Class Buttons
-    const PythonButton = new ButtonBuilder()
-      .setLabel("Python")
-      .setEmoji("<:python:1025584887337590834>")
+    const BasicButton = new ButtonBuilder()
+      .setLabel("Basic")
       .setStyle(ButtonStyle.Primary)
-      .setCustomId("python");
+      .setCustomId("basic");
 
-    const CplusButton = new ButtonBuilder()
-      .setLabel("C++")
-      .setEmoji("<:cplus:1025584885034913802>")
+    const IntermediateButton = new ButtonBuilder()
+      .setLabel("Intermediate")
       .setStyle(ButtonStyle.Primary)
-      .setCustomId("cplus");
+      .setCustomId("intermediate");
+
+    const AdvancedButton = new ButtonBuilder()
+      .setLabel("Advanced")
+      .setStyle(ButtonStyle.Primary)
+      .setCustomId("advanced");
+
+    const ProButton = new ButtonBuilder()
+      .setLabel("Pro")
+      .setStyle(ButtonStyle.Primary)
+      .setCustomId("pro");
 
     // Button rows
     const row =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        PythonButton,
-        CplusButton
+        BasicButton,
+        IntermediateButton,
+        AdvancedButton,
+        ProButton
       );
 
     // Save data redis
     await createStudent({
       discord: interaction.user.id,
-      name: name ?? "None",
+      email: email ?? "None",
       createdAt: new Date(),
     });
 
@@ -84,60 +99,110 @@ export class Command {
     }, 5 * 60 * 1000);
 
     await interaction.editReply({
-      content: `${name}, Select your course!`,
+      content: `${email}, Select your course!`,
       components: [row],
     });
   }
 
   // Events after button press
   // Clear this repeating junk
-  @ButtonComponent({ id: "python" })
-  async PythonButton(interaction: ButtonInteraction): Promise<void> {
+  @ButtonComponent({ id: "basic" })
+  async BasicButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
 
     // Reply
     if (student) {
       // Check on Google Sheets
-      if (await verifyStudent(student.name, "Python")) {
+      if (await verifyStudent(student.name, "OIE-Basic")) {
         const successEmbed = new EmbedBuilder()
           .setTitle("Success!")
           .setDescription(`${student.name}, You've completed your verification`)
           .setColor("#72d572");
 
-        await interaction.reply({
-          ephemeral: true,
+        await interaction.editReply({
           embeds: [successEmbed],
         });
       } else {
-        await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+        await interaction.editReply({ embeds: [errorEmbed] });
       }
     } else {
-      await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+      await interaction.editReply({ embeds: [errorEmbed] });
     }
   }
 
-  @ButtonComponent({ id: "cplus" })
-  async CplusButton(interaction: ButtonInteraction): Promise<void> {
+  @ButtonComponent({ id: "intermediate" })
+  async IntermediateButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
 
     // Reply
     if (student) {
       // Check on Google Sheets
-      if (await verifyStudent(student.name, "C++")) {
+      if (await verifyStudent(student.name, "OIE-Intermediate")) {
         const successEmbed = new EmbedBuilder()
           .setTitle("Success!")
           .setDescription(`${student.name}, You've completed your verification`)
           .setColor("#72d572");
 
-        await interaction.reply({
-          ephemeral: true,
+        await interaction.editReply({
           embeds: [successEmbed],
         });
       } else {
-        await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+        await interaction.editReply({ embeds: [errorEmbed] });
       }
     } else {
-      await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+      await interaction.editReply({ embeds: [errorEmbed] });
+    }
+  }
+
+  @ButtonComponent({ id: "advanced" })
+  async AdvancedButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    // Reply
+    if (student) {
+      // Check on Google Sheets
+      if (await verifyStudent(student.name, "OIE-Advanced")) {
+        const successEmbed = new EmbedBuilder()
+          .setTitle("Success!")
+          .setDescription(`${student.name}, You've completed your verification`)
+          .setColor("#72d572");
+
+        await interaction.editReply({
+          embeds: [successEmbed],
+        });
+      } else {
+        await interaction.editReply({ embeds: [errorEmbed] });
+      }
+    } else {
+      await interaction.editReply({ embeds: [errorEmbed] });
+    }
+  }
+
+  @ButtonComponent({ id: "intermediate" })
+  async ProButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    // Reply
+    if (student) {
+      // Check on Google Sheets
+      if (await verifyStudent(student.name, "OIE-Pro")) {
+        const successEmbed = new EmbedBuilder()
+          .setTitle("Success!")
+          .setDescription(`${student.name}, You've completed your verification`)
+          .setColor("#72d572");
+
+        await interaction.editReply({
+          embeds: [successEmbed],
+        });
+      } else {
+        await interaction.editReply({ embeds: [errorEmbed] });
+      }
+    } else {
+      await interaction.editReply({ embeds: [errorEmbed] });
     }
   }
 }
