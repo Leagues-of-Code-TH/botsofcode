@@ -2,7 +2,7 @@
 This file is for marking things to do. Pat always forget what to do.
 
 ## General
-- [ ] Change `/verify` to verify with email instead of real name
+- [X] Change `/verify` to verify with email instead of real name
 - [ ] Update document if it already exists **important**
 - [ ] Delete button selection when successfully verified 
 
@@ -13,7 +13,7 @@ This file is for marking things to do. Pat always forget what to do.
     - [X] TTL redis starts with commmand
     - [X] command expires
   - [X] checks on google sheets
-- [ ] Give role
+- [X] Give role
 - [ ] Store `completed: true`
 
 ## Multiple servers integration
