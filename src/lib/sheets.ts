@@ -7,8 +7,8 @@ function checkArray(array: any, obj: any): boolean {
   let result: boolean = false;
 
   array.forEach((element: any) => {
-    if (element.name == obj.name && element.course == obj.course) {
-      console.log(element.name, obj.name);
+    if (element.email == obj.email && element.course == obj.course) {
+      console.log(element.email, obj.email);
       console.log(element.course, obj.course);
       result = true;
     }
@@ -20,7 +20,7 @@ function checkArray(array: any, obj: any): boolean {
 }
 
 export async function verifyStudent(
-  name: string,
+  email: string,
   course: string
 ): Promise<boolean> {
   let result: boolean = false;
@@ -28,7 +28,7 @@ export async function verifyStudent(
     .then((res) => res.json())
     .then((students) => {
       if (students instanceof Array) {
-        result = checkArray(students, { name: name, course: course });
+        result = checkArray(students, { email: email, course: course });
       } else {
         result = false;
       }

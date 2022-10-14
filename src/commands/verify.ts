@@ -6,6 +6,7 @@ import {
   User,
   TextChannel,
   EmbedBuilder,
+  GuildMemberRoleManager,
 } from "discord.js";
 
 import {
@@ -114,15 +115,27 @@ export class Command {
     // Reply
     if (student) {
       // Check on Google Sheets
-      if (await verifyStudent(student.name, "OIE-Basic")) {
+      if (await verifyStudent(student.email, "OIE-Basic")) {
         const successEmbed = new EmbedBuilder()
           .setTitle("Success!")
-          .setDescription(`${student.name}, You've completed your verification`)
+          .setDescription(
+            `${student.email}, You've completed your verification`
+          )
           .setColor("#72d572");
 
         await interaction.editReply({
           embeds: [successEmbed],
         });
+
+        // Give the role
+        const role = interaction.guild?.roles.cache.find(
+          (role) => role.name === "1"
+        );
+        if (role) {
+          await interaction.guild?.members.cache
+            .get(interaction.user.id)
+            ?.roles.add(role);
+        }
       } else {
         await interaction.editReply({ embeds: [errorEmbed] });
       }
