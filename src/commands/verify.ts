@@ -1,10 +1,11 @@
-import type {
+import {
   ButtonInteraction,
   CommandInteraction,
   GuildMember,
   MessageActionRowComponentBuilder,
   User,
   TextChannel,
+  EmbedBuilder,
 } from "discord.js";
 
 import {
@@ -15,6 +16,18 @@ import {
 } from "discord.js";
 
 import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
+
+import { createStudent, findStudentById } from "../lib/redis.js";
+
+const errorEmbed = new EmbedBuilder()
+  .setTitle("Name not found")
+  .setDescription("Please try using the command again or contact the staffs.")
+  .setColor("#f36c60");
+
+const expiredEmbed = new EmbedBuilder()
+  .setTitle("Command Expired")
+  .setDescription("Please use the command again")
+  .setColor("#f36c60");
 
 @Discord()
 export class Command {
@@ -54,7 +67,21 @@ export class Command {
         CplusButton
       );
 
-    // Selector
+    // Save data redis
+    await createStudent({
+      discord: interaction.user.id,
+      name: name ?? "None",
+      createdAt: new Date(),
+    });
+
+    // Database TTL
+    setTimeout(async () => {
+      await interaction.editReply({
+        embeds: [expiredEmbed],
+      });
+      console.log("?");
+    }, 5 * 60 * 1000);
+
     await interaction.editReply({
       content: `${name}, Select your course!`,
       components: [row],
@@ -65,21 +92,44 @@ export class Command {
   // Clear this repeating junk
   @ButtonComponent({ id: "python" })
   async PythonButton(interaction: ButtonInteraction): Promise<void> {
-    await interaction.reply({
-      ephemeral: true,
-      content: `***${"`name`"}***, you've sent a verification request of **Python**<:python:1025584887337590834>! ${
-        interaction.member
-      }\nWait for an admin to approve your request.`,
-    });
+    const student = await findStudentById(interaction.user.id);
+
+    // Reply
+    if (student) {
+      // Check on Google Sheets
+      const successEmbed = new EmbedBuilder()
+        .setTitle("Success!")
+        .setDescription(`${student.name}You've completed your verification`)
+        .setColor("#72d572");
+
+      await interaction.reply({
+        ephemeral: true,
+        embeds: [successEmbed],
+      });
+    } else {
+      await interaction.reply({ embeds: [errorEmbed] });
+    }
   }
 
   @ButtonComponent({ id: "cplus" })
   async CplusButton(interaction: ButtonInteraction): Promise<void> {
-    await interaction.reply({
-      ephemeral: true,
-      content: `***${"`name`"}***, you've sent a verification request of **C++**<:cplus:1025584885034913802>! ${
-        interaction.member
-      }\nWait for an admin to approve your request.`,
-    });
+    const student = await findStudentById(interaction.user.id);
+
+    // Reply
+    if (student) {
+      // Check on Google Sheets
+
+      const successEmbed = new EmbedBuilder()
+        .setTitle("Success!")
+        .setDescription(`${student.name}, You've completed your verification`)
+        .setColor("#72d572");
+
+      await interaction.reply({
+        ephemeral: true,
+        embeds: [successEmbed],
+      });
+    } else {
+      await interaction.reply({ embeds: [errorEmbed] });
+    }
   }
 }

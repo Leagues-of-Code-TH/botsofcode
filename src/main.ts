@@ -4,6 +4,7 @@ import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
 import dotenv from "dotenv";
+import { createIndex } from "./lib/redis.js";
 dotenv.config();
 
 export const bot = new Client({
@@ -51,6 +52,8 @@ bot.once("ready", async () => {
     type: ActivityType.Watching,
     url: "https://www.leaguesofcode.com/th",
   });
+
+  await createIndex().then(() => console.log("Created Redis Index"));
 
   console.log(`Logged in as ${bot.user!.tag}`);
 });
