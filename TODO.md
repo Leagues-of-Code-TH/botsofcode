@@ -1,11 +1,12 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
+- [ ] Change `/verify` to verify with email instead of real name
 
 ## Verify Command
 - [X] Use redis for caching user verify
   - [ ] Connect with `docker-compose`
-  - [ ] Store `discord id`, `real name`, `date created`   
+  - [X] Store `discord id`, `real name`, `date created`   
     - [X] TTL redis starts with commmand
     - [X] command expires
   - [X] checks on google sheets
@@ -22,7 +23,7 @@ This file is for marking things to do. Pat always forget what to do.
 - [X] Get input
 - [X] Send announcement to channel
 - [X] Add reactions
-- 
+
 ## ~~Announce Command~~(`title`, `description`)
 - [X] Get input (used modal)
 - [X] Send announcement to channel (reply with @everyone)
