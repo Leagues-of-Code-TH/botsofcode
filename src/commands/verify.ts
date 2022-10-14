@@ -217,7 +217,7 @@ export class Command {
     }
   }
 
-  @ButtonComponent({ id: "intermediate" })
+  @ButtonComponent({ id: "pro" })
   async ProButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
