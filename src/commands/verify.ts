@@ -20,7 +20,6 @@ import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
 import { createStudent, findStudentById } from "../lib/redis.js";
 import { verifyStudent } from "../lib/sheets.js";
-import { bot as client } from "../main.js";
 
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
@@ -152,15 +151,27 @@ export class Command {
     // Reply
     if (student) {
       // Check on Google Sheets
-      if (await verifyStudent(student.name, "OIE-Intermediate")) {
+      if (await verifyStudent(student.email, "OIE-Intermediate")) {
         const successEmbed = new EmbedBuilder()
           .setTitle("Success!")
-          .setDescription(`${student.name}, You've completed your verification`)
+          .setDescription(
+            `${student.email}, You've completed your verification`
+          )
           .setColor("#72d572");
 
         await interaction.editReply({
           embeds: [successEmbed],
         });
+
+        // Give the role
+        const role = interaction.guild?.roles.cache.find(
+          (role) => role.name === "2"
+        );
+        if (role) {
+          await interaction.guild?.members.cache
+            .get(interaction.user.id)
+            ?.roles.add(role);
+        }
       } else {
         await interaction.editReply({ embeds: [errorEmbed] });
       }
@@ -177,15 +188,27 @@ export class Command {
     // Reply
     if (student) {
       // Check on Google Sheets
-      if (await verifyStudent(student.name, "OIE-Advanced")) {
+      if (await verifyStudent(student.email, "OIE-Advanced")) {
         const successEmbed = new EmbedBuilder()
           .setTitle("Success!")
-          .setDescription(`${student.name}, You've completed your verification`)
+          .setDescription(
+            `${student.email}, You've completed your verification`
+          )
           .setColor("#72d572");
 
         await interaction.editReply({
           embeds: [successEmbed],
         });
+
+        // Give the role
+        const role = interaction.guild?.roles.cache.find(
+          (role) => role.name === "3"
+        );
+        if (role) {
+          await interaction.guild?.members.cache
+            .get(interaction.user.id)
+            ?.roles.add(role);
+        }
       } else {
         await interaction.editReply({ embeds: [errorEmbed] });
       }
@@ -202,15 +225,27 @@ export class Command {
     // Reply
     if (student) {
       // Check on Google Sheets
-      if (await verifyStudent(student.name, "OIE-Pro")) {
+      if (await verifyStudent(student.email, "OIE-Pro")) {
         const successEmbed = new EmbedBuilder()
           .setTitle("Success!")
-          .setDescription(`${student.name}, You've completed your verification`)
+          .setDescription(
+            `${student.email}, You've completed your verification`
+          )
           .setColor("#72d572");
 
         await interaction.editReply({
           embeds: [successEmbed],
         });
+
+        // Give the role
+        const role = interaction.guild?.roles.cache.find(
+          (role) => role.name === "4"
+        );
+        if (role) {
+          await interaction.guild?.members.cache
+            .get(interaction.user.id)
+            ?.roles.add(role);
+        }
       } else {
         await interaction.editReply({ embeds: [errorEmbed] });
       }
