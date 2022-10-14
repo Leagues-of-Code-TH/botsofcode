@@ -1,16 +1,22 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
+
 ## Verify Command
-- [ ] Use redis for caching user verify
+- [X] Use redis for caching user verify
   - [ ] Connect with `docker-compose`
-  - [ ] Store `uid: realname`   
-    - [ ] TTL redis starts with commmand
-    - [ ] command expires
-  - [ ] Query (💀this here) when button is pressed
+  - [ ] Store `discord id`, `real name`, `date created`   
+    - [X] TTL redis starts with commmand
+    - [X] command expires
+  - [X] checks on google sheets
 - [ ] Give role
 - [ ] Store `completed: true`
-- [ ] Send realname + class to channel
+
+## Multiple servers integration
+- [ ] #welcome channel id of both server
+- [ ] read and `/verify` for different servers
+  - [ ] Give different role selections
+  - [ ] Read different Google Sheets
 
 ## ~~Poll Command~~ (`title`, `optinal args**`)
 - [X] Get input
