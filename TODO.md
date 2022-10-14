@@ -2,13 +2,13 @@
 This file is for marking things to do. Pat always forget what to do.
 
 ## General
-- [X] Change `/verify` to verify with email instead of real name
 - [ ] Update document if it already exists **important**
-- [ ] Delete button selection when successfully verified 
+- [X] Change `/verify` to verify with email instead of real name
+- [ ] ~~Delete button selection when successfully verified~~
 
 ## Verify Command
 - [X] Use redis for caching user verify
-  - [ ] Connect with `docker-compose`
+  - [ ] ~~Connect with `docker-compose`~~
   - [X] Store `discord id`, `real name`, `date created`   
     - [X] TTL redis starts with commmand
     - [X] command expires
