@@ -18,6 +18,7 @@ import {
 import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
 import { createStudent, findStudentById } from "../lib/redis.js";
+import { verifyStudent } from "../lib/sheets.js";
 
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
@@ -97,17 +98,21 @@ export class Command {
     // Reply
     if (student) {
       // Check on Google Sheets
-      const successEmbed = new EmbedBuilder()
-        .setTitle("Success!")
-        .setDescription(`${student.name}You've completed your verification`)
-        .setColor("#72d572");
+      if (await verifyStudent(student.name, "Python")) {
+        const successEmbed = new EmbedBuilder()
+          .setTitle("Success!")
+          .setDescription(`${student.name}, You've completed your verification`)
+          .setColor("#72d572");
 
-      await interaction.reply({
-        ephemeral: true,
-        embeds: [successEmbed],
-      });
+        await interaction.reply({
+          ephemeral: true,
+          embeds: [successEmbed],
+        });
+      } else {
+        await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+      }
     } else {
-      await interaction.reply({ embeds: [errorEmbed] });
+      await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
     }
   }
 
@@ -118,18 +123,21 @@ export class Command {
     // Reply
     if (student) {
       // Check on Google Sheets
+      if (await verifyStudent(student.name, "C++")) {
+        const successEmbed = new EmbedBuilder()
+          .setTitle("Success!")
+          .setDescription(`${student.name}, You've completed your verification`)
+          .setColor("#72d572");
 
-      const successEmbed = new EmbedBuilder()
-        .setTitle("Success!")
-        .setDescription(`${student.name}, You've completed your verification`)
-        .setColor("#72d572");
-
-      await interaction.reply({
-        ephemeral: true,
-        embeds: [successEmbed],
-      });
+        await interaction.reply({
+          ephemeral: true,
+          embeds: [successEmbed],
+        });
+      } else {
+        await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
+      }
     } else {
-      await interaction.reply({ embeds: [errorEmbed] });
+      await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
     }
   }
 }
