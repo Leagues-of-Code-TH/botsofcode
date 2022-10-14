@@ -7,7 +7,11 @@ function checkArray(array: any, obj: any): boolean {
   let result: boolean = false;
 
   array.forEach((element: any) => {
-    if (element.email == obj.email && element.course == obj.course) {
+    if (
+      element.email == obj.email &&
+      element.course == obj.course &&
+      element.paid === "Yes"
+    ) {
       console.log(element.email, obj.email);
       console.log(element.course, obj.course);
       result = true;
