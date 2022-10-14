@@ -1,6 +1,7 @@
 # Todo list
 This file is for marking things to do. Pat always forget what to do.
 
+## General
 - [ ] Change `/verify` to verify with email instead of real name
 
 ## Verify Command
