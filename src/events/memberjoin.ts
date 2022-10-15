@@ -6,7 +6,7 @@ import { Discord, On } from "discordx";
 export class MemberJoin {
   @On()
   guildMemberAdd([member]: ArgsOf<"guildMemberAdd">, client: Client): void {
-    const welcomeChannelId = process.env.WELCOME_CHANNEL;
+    const welcomeChannelId = process.env.WELCOME_CHANNEL_TH;
 
     if (welcomeChannelId !== null) {
       const welcomeChannel = client.channels.cache.get(

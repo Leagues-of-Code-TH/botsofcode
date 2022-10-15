@@ -21,6 +21,13 @@ import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 import { createStudent, findStudentById } from "../lib/redis.js";
 import { verifyStudent } from "../lib/sheets.js";
 
+import {
+  BasicButton,
+  IntermediateButton,
+  AdvancedButton,
+  ProButton,
+} from "../lib/spainEmbeds.js";
+
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
   .setDescription(
@@ -34,6 +41,41 @@ const expiredEmbed = new EmbedBuilder()
     "You've used this command for too long. Please try again.\nIf you believe this is an error, please contact a staff."
   )
   .setColor("#f36c60");
+
+async function verifySelect(
+  student: any,
+  course: string,
+  interaction: ButtonInteraction
+): Promise<void> {
+  // Reply
+  if (student) {
+    // Check on Google Sheets
+    if (await verifyStudent(student.email, course)) {
+      const successEmbed = new EmbedBuilder()
+        .setTitle("Success!")
+        .setDescription(`${student.email}, You've completed your verification`)
+        .setColor("#72d572");
+
+      await interaction.editReply({
+        embeds: [successEmbed],
+      });
+
+      // Give the role
+      const role = interaction.guild?.roles.cache.find(
+        (role) => role.name === "1"
+      );
+      if (role) {
+        await interaction.guild?.members.cache
+          .get(interaction.user.id)
+          ?.roles.add(role);
+      }
+    } else {
+      await interaction.editReply({ embeds: [errorEmbed] });
+    }
+  } else {
+    await interaction.editReply({ embeds: [errorEmbed] });
+  }
+}
 
 @Discord()
 export class Command {
@@ -52,27 +94,6 @@ export class Command {
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: true });
-
-    // Class Buttons
-    const BasicButton = new ButtonBuilder()
-      .setLabel("Basic")
-      .setStyle(ButtonStyle.Primary)
-      .setCustomId("basic");
-
-    const IntermediateButton = new ButtonBuilder()
-      .setLabel("Intermediate")
-      .setStyle(ButtonStyle.Primary)
-      .setCustomId("intermediate");
-
-    const AdvancedButton = new ButtonBuilder()
-      .setLabel("Advanced")
-      .setStyle(ButtonStyle.Primary)
-      .setCustomId("advanced");
-
-    const ProButton = new ButtonBuilder()
-      .setLabel("Pro")
-      .setStyle(ButtonStyle.Primary)
-      .setCustomId("pro");
 
     // Button rows
     const row =
@@ -111,36 +132,7 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    // Reply
-    if (student) {
-      // Check on Google Sheets
-      if (await verifyStudent(student.email, "OIE-Basic")) {
-        const successEmbed = new EmbedBuilder()
-          .setTitle("Success!")
-          .setDescription(
-            `${student.email}, You've completed your verification`
-          )
-          .setColor("#72d572");
-
-        await interaction.editReply({
-          embeds: [successEmbed],
-        });
-
-        // Give the role
-        const role = interaction.guild?.roles.cache.find(
-          (role) => role.name === "1"
-        );
-        if (role) {
-          await interaction.guild?.members.cache
-            .get(interaction.user.id)
-            ?.roles.add(role);
-        }
-      } else {
-        await interaction.editReply({ embeds: [errorEmbed] });
-      }
-    } else {
-      await interaction.editReply({ embeds: [errorEmbed] });
-    }
+    await verifySelect(student, "OIE-Basic", interaction);
   }
 
   @ButtonComponent({ id: "intermediate" })
@@ -148,36 +140,7 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    // Reply
-    if (student) {
-      // Check on Google Sheets
-      if (await verifyStudent(student.email, "OIE-Intermediate")) {
-        const successEmbed = new EmbedBuilder()
-          .setTitle("Success!")
-          .setDescription(
-            `${student.email}, You've completed your verification`
-          )
-          .setColor("#72d572");
-
-        await interaction.editReply({
-          embeds: [successEmbed],
-        });
-
-        // Give the role
-        const role = interaction.guild?.roles.cache.find(
-          (role) => role.name === "2"
-        );
-        if (role) {
-          await interaction.guild?.members.cache
-            .get(interaction.user.id)
-            ?.roles.add(role);
-        }
-      } else {
-        await interaction.editReply({ embeds: [errorEmbed] });
-      }
-    } else {
-      await interaction.editReply({ embeds: [errorEmbed] });
-    }
+    await verifySelect(student, "OIE-Intermediate", interaction);
   }
 
   @ButtonComponent({ id: "advanced" })
@@ -185,36 +148,7 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    // Reply
-    if (student) {
-      // Check on Google Sheets
-      if (await verifyStudent(student.email, "OIE-Advanced")) {
-        const successEmbed = new EmbedBuilder()
-          .setTitle("Success!")
-          .setDescription(
-            `${student.email}, You've completed your verification`
-          )
-          .setColor("#72d572");
-
-        await interaction.editReply({
-          embeds: [successEmbed],
-        });
-
-        // Give the role
-        const role = interaction.guild?.roles.cache.find(
-          (role) => role.name === "3"
-        );
-        if (role) {
-          await interaction.guild?.members.cache
-            .get(interaction.user.id)
-            ?.roles.add(role);
-        }
-      } else {
-        await interaction.editReply({ embeds: [errorEmbed] });
-      }
-    } else {
-      await interaction.editReply({ embeds: [errorEmbed] });
-    }
+    await verifySelect(student, "OIE-Advanced", interaction);
   }
 
   @ButtonComponent({ id: "pro" })
@@ -222,35 +156,6 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    // Reply
-    if (student) {
-      // Check on Google Sheets
-      if (await verifyStudent(student.email, "OIE-Pro")) {
-        const successEmbed = new EmbedBuilder()
-          .setTitle("Success!")
-          .setDescription(
-            `${student.email}, You've completed your verification`
-          )
-          .setColor("#72d572");
-
-        await interaction.editReply({
-          embeds: [successEmbed],
-        });
-
-        // Give the role
-        const role = interaction.guild?.roles.cache.find(
-          (role) => role.name === "4"
-        );
-        if (role) {
-          await interaction.guild?.members.cache
-            .get(interaction.user.id)
-            ?.roles.add(role);
-        }
-      } else {
-        await interaction.editReply({ embeds: [errorEmbed] });
-      }
-    } else {
-      await interaction.editReply({ embeds: [errorEmbed] });
-    }
+    await verifySelect(student, "OIE-Pro", interaction);
   }
 }

@@ -16,7 +16,7 @@ let schema = new Schema(
   {
     discord: { type: "string" },
     email: { type: "string" },
-    createdAt: { type: "date" },
+    createdAt: { type: "date", sortable: true },
   },
   {
     dataStructure: "JSON",
