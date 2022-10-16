@@ -2,23 +2,27 @@
 This file is for marking things to do. Pat always forget what to do.
 
 ## General
-- [ ] Change `/verify` to verify with email instead of real name
+- [ ] Update document if it already exists **important**
+- [X] Change `/verify` to verify with email instead of real name
+- [X] ~~Delete button selection when successfully verified~~
+
+## Multiple servers integration
+- [X] #welcome channel id of both server
+  - [X] The same event check id to send to different channels
+- [X] read and `/verify` for different servers
+  - [X] Give different role selections
+  - [X] Read different Google Sheets
 
 ## Verify Command
+- [ ] Store `completed: true`
 - [X] Use redis for caching user verify
-  - [ ] Connect with `docker-compose`
+  - [X] ~~Connect with `docker-compose`~~
   - [X] Store `discord id`, `real name`, `date created`   
     - [X] TTL redis starts with commmand
     - [X] command expires
   - [X] checks on google sheets
-- [ ] Give role
-- [ ] Store `completed: true`
+- [X] Give role
 
-## Multiple servers integration
-- [ ] #welcome channel id of both server
-- [ ] read and `/verify` for different servers
-  - [ ] Give different role selections
-  - [ ] Read different Google Sheets
 
 ## ~~Poll Command~~ (`title`, `optinal args**`)
 - [X] Get input

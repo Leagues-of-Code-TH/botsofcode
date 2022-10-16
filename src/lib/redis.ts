@@ -15,8 +15,8 @@ let schema = new Schema(
   Student,
   {
     discord: { type: "string" },
-    name: { type: "string" },
-    createdAt: { type: "date" },
+    email: { type: "string" },
+    createdAt: { type: "date", sortable: true },
   },
   {
     dataStructure: "JSON",
@@ -25,7 +25,7 @@ let schema = new Schema(
 
 type StudentData = {
   discord: string;
-  name: string;
+  email: string;
   createdAt: Date;
 };
 

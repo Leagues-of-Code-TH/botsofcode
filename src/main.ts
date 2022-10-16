@@ -48,9 +48,9 @@ bot.once("ready", async () => {
   //    ...bot.guilds.cache.map((g) => g.id)
   //  );
 
-  await bot.user?.setActivity("Leagues of Code TH", {
+  await bot.user?.setActivity("Leagues of Code", {
     type: ActivityType.Watching,
-    url: "https://www.leaguesofcode.com/th",
+    url: "https://www.leaguesofcode.com/",
   });
 
   await createIndex().then(() => console.log("Created Redis Index"));

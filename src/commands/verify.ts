@@ -6,6 +6,7 @@ import {
   User,
   TextChannel,
   EmbedBuilder,
+  GuildMemberRoleManager,
 } from "discord.js";
 
 import {
@@ -20,15 +21,64 @@ import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 import { createStudent, findStudentById } from "../lib/redis.js";
 import { verifyStudent } from "../lib/sheets.js";
 
+import {
+  BasicButton,
+  IntermediateButton,
+  AdvancedButton,
+  ProButton,
+} from "../lib/spainEmbeds.js";
+
+import { MathButton } from "../lib/thaiEmbeds.js";
+
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
-  .setDescription("Please try using the command again or contact the staffs.")
+  .setDescription(
+    "Your name doesn't match with the course in our Database.\nIf you believe this is an error, please contact a staff."
+  )
   .setColor("#f36c60");
 
 const expiredEmbed = new EmbedBuilder()
   .setTitle("Command Expired")
-  .setDescription("Please use the command again")
+  .setDescription(
+    "You've used this command for too long. Please try again.\nIf you believe this is an error, please contact a staff."
+  )
   .setColor("#f36c60");
+
+async function verifySelect(
+  student: any,
+  course: string,
+  roleName: string,
+  interaction: ButtonInteraction
+): Promise<void> {
+  // Reply
+  if (student) {
+    // Check on Google Sheets
+    if (await verifyStudent(student.email, course)) {
+      const successEmbed = new EmbedBuilder()
+        .setTitle("Success!")
+        .setDescription(`${student.email}, You've completed your verification`)
+        .setColor("#72d572");
+
+      await interaction.editReply({
+        embeds: [successEmbed],
+      });
+
+      // Give the role
+      const role = interaction.guild?.roles.cache.find(
+        (role) => role.name === roleName
+      );
+      if (role) {
+        await interaction.guild?.members.cache
+          .get(interaction.user.id)
+          ?.roles.add(role);
+      }
+    } else {
+      await interaction.editReply({ embeds: [errorEmbed] });
+    }
+  } else {
+    await interaction.editReply({ embeds: [errorEmbed] });
+  }
+}
 
 @Discord()
 export class Command {
@@ -38,40 +88,36 @@ export class Command {
   })
   async verify(
     @SlashOption({
-      description: "Enter your real name",
-      name: "name",
+      description: "Enter your email",
+      name: "email",
       required: true,
       type: ApplicationCommandOptionType.String,
     })
-    name: string | undefined,
+    email: string | undefined,
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: true });
 
-    // Class Buttons
-    const PythonButton = new ButtonBuilder()
-      .setLabel("Python")
-      .setEmoji("<:python:1025584887337590834>")
-      .setStyle(ButtonStyle.Primary)
-      .setCustomId("python");
-
-    const CplusButton = new ButtonBuilder()
-      .setLabel("C++")
-      .setEmoji("<:cplus:1025584885034913802>")
-      .setStyle(ButtonStyle.Primary)
-      .setCustomId("cplus");
+    const guildId = interaction.guildId;
 
     // Button rows
-    const row =
+    const spainRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        PythonButton,
-        CplusButton
+        BasicButton,
+        IntermediateButton,
+        AdvancedButton,
+        ProButton
+      );
+
+    const thaiRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        MathButton
       );
 
     // Save data redis
     await createStudent({
       discord: interaction.user.id,
-      name: name ?? "None",
+      email: email ?? "None",
       createdAt: new Date(),
     });
 
@@ -80,64 +126,73 @@ export class Command {
       await interaction.editReply({
         embeds: [expiredEmbed],
       });
-      console.log("?");
+      console.log("Command Expired");
     }, 5 * 60 * 1000);
 
-    await interaction.editReply({
-      content: `${name}, Select your course!`,
-      components: [row],
-    });
+    if (guildId == process.env.SP_ID) {
+      await interaction.editReply({
+        content: `${email}, Select your course!`,
+        components: [spainRow],
+      });
+    } else if (guildId == process.env.TH_ID) {
+      await interaction.editReply({
+        content: `${email}, Select your course!`,
+        components: [thaiRow],
+      });
+    } else {
+      await interaction.editReply({
+        content: `Please use this command inside a Leagues of Code server`,
+      });
+    }
   }
 
   // Events after button press
   // Clear this repeating junk
-  @ButtonComponent({ id: "python" })
-  async PythonButton(interaction: ButtonInteraction): Promise<void> {
+  // Spain buttons
+  @ButtonComponent({ id: "basic" })
+  async BasicButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
 
-    // Reply
-    if (student) {
-      // Check on Google Sheets
-      if (await verifyStudent(student.name, "Python")) {
-        const successEmbed = new EmbedBuilder()
-          .setTitle("Success!")
-          .setDescription(`${student.name}, You've completed your verification`)
-          .setColor("#72d572");
-
-        await interaction.reply({
-          ephemeral: true,
-          embeds: [successEmbed],
-        });
-      } else {
-        await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
-      }
-    } else {
-      await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
-    }
+    await verifySelect(student, "OIE-Basic", "OIE-Basic", interaction);
   }
 
-  @ButtonComponent({ id: "cplus" })
-  async CplusButton(interaction: ButtonInteraction): Promise<void> {
+  @ButtonComponent({ id: "intermediate" })
+  async IntermediateButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
 
-    // Reply
-    if (student) {
-      // Check on Google Sheets
-      if (await verifyStudent(student.name, "C++")) {
-        const successEmbed = new EmbedBuilder()
-          .setTitle("Success!")
-          .setDescription(`${student.name}, You've completed your verification`)
-          .setColor("#72d572");
-
-        await interaction.reply({
-          ephemeral: true,
-          embeds: [successEmbed],
-        });
-      } else {
-        await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
-      }
-    } else {
-      await interaction.reply({ ephemeral: true, embeds: [errorEmbed] });
-    }
+    await verifySelect(
+      student,
+      "OIE-Intermediate",
+      "OIE-Intermediate",
+      interaction
+    );
   }
+
+  @ButtonComponent({ id: "advanced" })
+  async AdvancedButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "OIE-Advanced", "OIE-Advanced", interaction);
+  }
+
+  @ButtonComponent({ id: "pro" })
+  async ProButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "OIE-Pro", "OIE-Pro", interaction);
+  }
+
+  @ButtonComponent({ id: "math" })
+  async MathButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "Math", "Math", interaction);
+  }
+
+  // Thai buttons
 }
