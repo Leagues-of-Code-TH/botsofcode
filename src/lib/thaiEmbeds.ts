@@ -1,5 +1,11 @@
 import { ButtonBuilder, ButtonStyle } from "discord.js";
 
+export const MathButton = new ButtonBuilder()
+  .setLabel("Math")
+  .setEmoji("<:math:1029047328260247552>")
+  .setStyle(ButtonStyle.Primary)
+  .setCustomId("math");
+
 // Class Buttons
 export const PythonButton = new ButtonBuilder()
   .setLabel("Python")

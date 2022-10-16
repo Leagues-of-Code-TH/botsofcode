@@ -7,11 +7,11 @@ This file is for marking things to do. Pat always forget what to do.
 - [X] ~~Delete button selection when successfully verified~~
 
 ## Multiple servers integration
-- [ ] #welcome channel id of both server
-  - [ ] The same event check id to send to different channels
-- [ ] read and `/verify` for different servers
-  - [ ] Give different role selections
-  - [ ] Read different Google Sheets
+- [X] #welcome channel id of both server
+  - [X] The same event check id to send to different channels
+- [X] read and `/verify` for different servers
+  - [X] Give different role selections
+  - [X] Read different Google Sheets
 
 ## Verify Command
 - [ ] Store `completed: true`

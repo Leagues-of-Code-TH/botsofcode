@@ -28,6 +28,8 @@ import {
   ProButton,
 } from "../lib/spainEmbeds.js";
 
+import { MathButton } from "../lib/thaiEmbeds.js";
+
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
   .setDescription(
@@ -45,6 +47,7 @@ const expiredEmbed = new EmbedBuilder()
 async function verifySelect(
   student: any,
   course: string,
+  roleName: string,
   interaction: ButtonInteraction
 ): Promise<void> {
   // Reply
@@ -62,7 +65,7 @@ async function verifySelect(
 
       // Give the role
       const role = interaction.guild?.roles.cache.find(
-        (role) => role.name === "1"
+        (role) => role.name === roleName
       );
       if (role) {
         await interaction.guild?.members.cache
@@ -95,13 +98,20 @@ export class Command {
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: true });
 
+    const guildId = interaction.guildId;
+
     // Button rows
-    const row =
+    const spainRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
         BasicButton,
         IntermediateButton,
         AdvancedButton,
         ProButton
+      );
+
+    const thaiRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        MathButton
       );
 
     // Save data redis
@@ -116,23 +126,35 @@ export class Command {
       await interaction.editReply({
         embeds: [expiredEmbed],
       });
-      console.log("?");
+      console.log("Command Expired");
     }, 5 * 60 * 1000);
 
-    await interaction.editReply({
-      content: `${email}, Select your course!`,
-      components: [row],
-    });
+    if (guildId == process.env.SP_ID) {
+      await interaction.editReply({
+        content: `${email}, Select your course!`,
+        components: [spainRow],
+      });
+    } else if (guildId == process.env.TH_ID) {
+      await interaction.editReply({
+        content: `${email}, Select your course!`,
+        components: [thaiRow],
+      });
+    } else {
+      await interaction.editReply({
+        content: `Please use this command inside a Leagues of Code server`,
+      });
+    }
   }
 
   // Events after button press
   // Clear this repeating junk
+  // Spain buttons
   @ButtonComponent({ id: "basic" })
   async BasicButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Basic", interaction);
+    await verifySelect(student, "OIE-Basic", "OIE-Basic", interaction);
   }
 
   @ButtonComponent({ id: "intermediate" })
@@ -140,7 +162,12 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Intermediate", interaction);
+    await verifySelect(
+      student,
+      "OIE-Intermediate",
+      "OIE-Intermediate",
+      interaction
+    );
   }
 
   @ButtonComponent({ id: "advanced" })
@@ -148,7 +175,7 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Advanced", interaction);
+    await verifySelect(student, "OIE-Advanced", "OIE-Advanced", interaction);
   }
 
   @ButtonComponent({ id: "pro" })
@@ -156,6 +183,16 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Pro", interaction);
+    await verifySelect(student, "OIE-Pro", "OIE-Pro", interaction);
   }
+
+  @ButtonComponent({ id: "math" })
+  async MathButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "Math", "Math", interaction);
+  }
+
+  // Thai buttons
 }
