@@ -38,7 +38,7 @@ export async function createStudent(data: StudentData): Promise<string> {
 
   const id = await repository.save(student);
 
-  await client.execute(["EXPIRE", `Student:${id}`, 300]);
+  await client.execute(["EXPIRE", `Student:${id}`, 60]);
 
   return id;
 }
