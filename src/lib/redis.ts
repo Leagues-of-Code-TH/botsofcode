@@ -43,13 +43,14 @@ export async function createStudent(data: StudentData): Promise<string> {
     studentExist.email = data.email;
 
     await repository.save(studentExist);
+    await repository.expire(studentExist, 600);
   } else {
     // Create a new student
     const student = repository.createEntity(data);
     id = await repository.save(student);
   }
 
-  await repository.expire(id, 60);
+  await repository.expire(id, 600);
 
   return id;
 }
