@@ -2,7 +2,7 @@
 This file is for marking things to do. Pat always forget what to do.
 
 ## General
-- [ ] Update document if it already exists **important**
+- [X] Update document if it already exists **important**
 - [X] Change `/verify` to verify with email instead of real name
 - [X] ~~Delete button selection when successfully verified~~
 

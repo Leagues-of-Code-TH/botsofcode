@@ -32,13 +32,25 @@ type StudentData = {
 export async function createStudent(data: StudentData): Promise<string> {
   await connect();
 
+  let id: any;
+
   const repository = client.fetchRepository(schema);
 
-  const student = repository.createEntity(data);
+  const studentExist = await findStudentById(data.discord);
 
-  const id = await repository.save(student);
+  if (studentExist) {
+    // Update a student
+    studentExist.email = data.email;
 
-  await client.execute(["EXPIRE", `Student:${id}`, 60]);
+    await repository.save(studentExist);
+    await repository.expire(studentExist, 600);
+  } else {
+    // Create a new student
+    const student = repository.createEntity(data);
+    id = await repository.save(student);
+  }
+
+  await repository.expire(id, 600);
 
   return id;
 }
