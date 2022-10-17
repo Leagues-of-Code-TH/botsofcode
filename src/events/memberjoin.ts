@@ -11,7 +11,7 @@ async function sendEmbed(
     .setTitle("New Member")
     .setDescription(
       `Welcome ${member.user.username} to the Leagues of Code \n` +
-        "You can select your class using </verify:1025587115792281660> if you have purchased a course! ( You can only do this command once per minute )\n" +
+        "You can select your class using </verify:1025587115792281660> if you have purchased a course!\n" +
         "Enjoy your stay!"
     );
 
