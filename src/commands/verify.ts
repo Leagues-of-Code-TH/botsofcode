@@ -33,7 +33,7 @@ import { MathButton } from "../lib/thaiEmbeds.js";
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
   .setDescription(
-    "Your name doesn't match with the course in our Database.\nPlease try again\nIf you believe this is an error, please contact a staff."
+    "There is something missing from your registration process that doesn't let us enroll you in the course.\n Please contact the Leagues of Code team through `support@leaguesofcode.com`"
   )
   .setColor("#f36c60");
 
