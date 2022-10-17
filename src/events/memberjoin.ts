@@ -11,7 +11,7 @@ async function sendEmbed(
     .setTitle("New Member")
     .setDescription(
       `Welcome ${member.user.username} to the Leagues of Code \n` +
-        "You can select your class using </verify:1025587115792281660> if you have purchased a course!\n" +
+        "There is something missing from your registration process that doesn't let us enroll you in the course.\nPlease contact the Leagues of Code team through `support@leaguesofcode.com`" +
         "Enjoy your stay!"
     );
 
