@@ -33,14 +33,14 @@ import { MathButton } from "../lib/thaiEmbeds.js";
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
   .setDescription(
-    "Your name doesn't match with the course in our Database.\nIf you believe this is an error, please contact a staff."
+    "Your name doesn't match with the course in our Database.\nPlease try again\nIf you believe this is an error, please contact a staff."
   )
   .setColor("#f36c60");
 
 const expiredEmbed = new EmbedBuilder()
   .setTitle("Command Expired")
   .setDescription(
-    "You've used this command for too long. Please try again.\nIf you believe this is an error, please contact a staff."
+    "You've used this command for too long.\n Please try again.\nIf you believe this is an error, please contact a staff."
   )
   .setColor("#f36c60");
 
