@@ -127,7 +127,7 @@ export class Command {
         embeds: [expiredEmbed],
       });
       console.log("Command Expired");
-    }, 1 * 60 * 1000);
+    }, 10 * 60 * 1000);
 
     if (guildId == process.env.SP_ID) {
       await interaction.editReply({
