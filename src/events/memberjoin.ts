@@ -2,22 +2,17 @@ import { EmbedBuilder, GuildMember, TextChannel } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import { Discord, On } from "discordx";
 
+import { thaiWelcome } from "../lib/thaiEmbeds.js";
+import { spainWelcome } from "../lib/spainEmbeds.js";
+
 async function sendEmbed(
   member: GuildMember,
-  channel: TextChannel
+  channel: TextChannel,
+  embed: EmbedBuilder
 ): Promise<void> {
-  const welcomeMessageEmbed = new EmbedBuilder()
-    .setColor("Aqua")
-    .setTitle("New Member")
-    .setDescription(
-      `Welcome ${member.user.username} to the Leagues of Code \n` +
-        "You can select your class using </verify:1025587115792281660> if you have purchased a course!\n" +
-        "Enjoy your stay!"
-    );
-
   channel.send({
     content: `<@${member.user.id}>`,
-    embeds: [welcomeMessageEmbed],
+    embeds: [embed],
   });
 }
 
@@ -28,29 +23,29 @@ export class MemberJoin {
     [member]: ArgsOf<"guildMemberAdd">,
     client: Client
   ): Promise<void> {
-    const thaiWelcome = process.env.WELCOME_CHANNEL_TH;
-    const spainWelcome = process.env.WELCOME_CHANNEL_SP;
+    const thaiWelcomeId = process.env.WELCOME_CHANNEL_TH;
+    const spainWelcomeId = process.env.WELCOME_CHANNEL_SP;
     const thaiId = process.env.TH_ID;
     const spainId = process.env.SP_ID;
 
     const guildId = member.guild.id;
 
     // if join in Thai
-    if (thaiWelcome !== null && guildId == thaiId) {
+    if (thaiWelcomeId !== null && guildId == thaiId) {
       const thaiWelcomeChannel = client.channels.cache.get(
-        thaiWelcome!
+        thaiWelcomeId!
       ) as TextChannel;
 
-      await sendEmbed(member, thaiWelcomeChannel);
+      await sendEmbed(member, thaiWelcomeChannel, thaiWelcome);
     }
 
     // if join in Spain
-    if (spainWelcome !== null && guildId == spainId) {
-      const thaiWelcomeChannel = client.channels.cache.get(
-        spainWelcome!
+    if (spainWelcomeId !== null && guildId == spainId) {
+      const spainWelcomeChannel = client.channels.cache.get(
+        spainWelcomeId!
       ) as TextChannel;
 
-      await sendEmbed(member, thaiWelcomeChannel);
+      await sendEmbed(member, spainWelcomeChannel, spainWelcome);
     }
 
     console.log(

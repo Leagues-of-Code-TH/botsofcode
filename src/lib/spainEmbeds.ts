@@ -1,4 +1,13 @@
-import { ButtonBuilder, ButtonStyle } from "discord.js";
+import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
+
+export const spainWelcome = new EmbedBuilder()
+  .setColor("Aqua")
+  .setTitle("New Member")
+  .setDescription(
+    `👋 Welcome to the Leagues of Code!\n` +
+      "You can select your class using </verify:1025587115792281660> if you have purchased a course!\n" +
+      "Enjoy your stay!"
+  );
 
 export const BasicButton = new ButtonBuilder()
   .setLabel("Basic")

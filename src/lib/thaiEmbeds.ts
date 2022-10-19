@@ -1,5 +1,13 @@
-import { ButtonBuilder, ButtonStyle } from "discord.js";
+import { ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 
+export const thaiWelcome = new EmbedBuilder()
+  .setColor("Aqua")
+  .setTitle("New Member")
+  .setDescription(
+    `👋 ยินดีต้อนรับเข้าสู่ Leagues of Code!\n` +
+      "คุณสามารถใช้คำสั่ง </verify:1025587115792281660> ถ้าคุณสมัครคอรส์ไว้\n" +
+      "Enjoy your stay!"
+  );
 export const MathButton = new ButtonBuilder()
   .setLabel("Math")
   .setEmoji("<:math:1029047328260247552>")
