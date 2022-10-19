@@ -1,20 +1,11 @@
 import {
   ButtonInteraction,
   CommandInteraction,
-  GuildMember,
   MessageActionRowComponentBuilder,
-  User,
-  TextChannel,
   EmbedBuilder,
-  GuildMemberRoleManager,
 } from "discord.js";
 
-import {
-  ActionRowBuilder,
-  ApplicationCommandOptionType,
-  ButtonBuilder,
-  ButtonStyle,
-} from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType } from "discord.js";
 
 import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
@@ -67,7 +58,15 @@ async function verifySelect(
       const role = interaction.guild?.roles.cache.find(
         (role) => role.name === roleName
       );
+
       if (role) {
+        await interaction.guild?.members.cache
+          .get(interaction.user.id)
+          ?.roles.remove(
+            interaction.guild?.members.cache.get(interaction.user.id)?.roles
+              .cache ?? "None"
+          );
+
         await interaction.guild?.members.cache
           .get(interaction.user.id)
           ?.roles.add(role);
