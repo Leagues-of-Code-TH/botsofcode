@@ -10,9 +10,9 @@ import {
 } from "discordx";
 
 @Discord()
-export class Example {
+export class Admin {
   @Slash({ description: "Pings the bot", name: "ping" })
-  hello(interaction: CommandInteraction) {
+  ping(interaction: CommandInteraction) {
     const PingEmbed = new EmbedBuilder()
       .setTitle("Pong!")
       .setColor("Aqua")

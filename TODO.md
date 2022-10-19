@@ -2,6 +2,8 @@
 This file is for marking things to do. Pat always forget what to do.
 
 ## General
+- [ ] Thai and Spanish embed 
+- [X] Clear every roles before assigning a new one
 - [X] Update document if it already exists **important**
 - [X] Change `/verify` to verify with email instead of real name
 - [X] ~~Delete button selection when successfully verified~~
