@@ -4,9 +4,9 @@ export const spainWelcome = new EmbedBuilder()
   .setColor("Aqua")
   .setTitle("New Member")
   .setDescription(
-    `👋 Welcome to the Leagues of Code!\n` +
-      "You can select your class using </verify:1025587115792281660> if you have purchased a course!\n" +
-      "Enjoy your stay!"
+    "Bienvenida a las Leagues of Code!\n" +
+      "Para acceder al canal de tu clase y asignarte los correspondientes permisos es necesario que escribas </verify:1025587115792281660>  en este canal y selecciones el curso al que has sido asignad@.\n" +
+      "¡Disfruta de la comunidad de Leagues of Code! 🎉"
   );
 
 export const BasicButton = new ButtonBuilder()
