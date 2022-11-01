@@ -1,16 +1,19 @@
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+import { Server } from "./types.js";
 dotenv.config();
-const sheetId = process.env.SHEET_ID;
+const dataSpain = process.env.DATA_SP;
+const dataThai = process.env.DATA_TH;
 
 function checkArray(array: any, obj: any): boolean {
   let result: boolean = false;
 
   array.forEach((element: any) => {
     if (
-      element.email.trim() == obj.email &&
-      element.course == obj.course &&
-      element.paid.trim() === "Yes"
+      (element.email.trim() == obj.email &&
+        element.course == obj.course &&
+        element.paid.trim() === "Yes") ||
+      element.paid.trim() == "TRUE"
     ) {
       console.log("Data matches!");
       console.log(element.email, ":", obj.email);
@@ -28,17 +31,35 @@ function checkArray(array: any, obj: any): boolean {
 
 export async function verifyStudent(
   email: string,
-  course: string
+  course: string,
+  server: Server
 ): Promise<boolean> {
   let result: boolean = false;
-  await fetch(`https://opensheet.elk.sh/${sheetId}`)
-    .then((res) => res.json())
-    .then((students) => {
-      if (students instanceof Array) {
-        result = checkArray(students, { email: email, course: course });
-      } else {
-        result = false;
-      }
-    });
-  return result;
+
+  if (server == Server.SPAIN) {
+    await fetch(`https://opensheet.elk.sh/${dataSpain}`)
+      .then((res) => res.json())
+      .then((students) => {
+        if (students instanceof Array) {
+          result = checkArray(students, { email: email, course: course });
+        } else {
+          result = false;
+        }
+      });
+    return result;
+  } else if (server == Server.THAI) {
+    await fetch(`https://opensheet.elk.sh/${dataThai}`)
+      .then((res) => res.json())
+      .then((students) => {
+        if (students instanceof Array) {
+          result = checkArray(students, { email: email, course: course });
+        } else {
+          result = false;
+        }
+      });
+    return result;
+  } else {
+    return false;
+    console.error("HUGE ERROR, SHEETS.TS");
+  }
 }
