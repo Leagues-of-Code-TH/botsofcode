@@ -20,6 +20,7 @@ import {
 } from "../lib/spainEmbeds.js";
 
 import { MathButton } from "../lib/thaiEmbeds.js";
+import { Server } from "../lib/types.js";
 
 const errorEmbed = new EmbedBuilder()
   .setTitle("Name not found")
@@ -39,12 +40,13 @@ async function verifySelect(
   student: any,
   course: string,
   roleName: string,
-  interaction: ButtonInteraction
+  interaction: ButtonInteraction,
+  server: Server
 ): Promise<void> {
   // Reply
   if (student) {
     // Check on Google Sheets
-    if (await verifyStudent(student.email, course)) {
+    if (await verifyStudent(student.email, course, server)) {
       const successEmbed = new EmbedBuilder()
         .setTitle("Success!")
         .setDescription(`${student.email}, You've completed your verification`)
@@ -153,7 +155,13 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Basic", "OIE-Basic", interaction);
+    await verifySelect(
+      student,
+      "OIE-Basic",
+      "OIE-Basic",
+      interaction,
+      Server.SPAIN
+    );
   }
 
   @ButtonComponent({ id: "intermediate" })
@@ -165,7 +173,8 @@ export class Command {
       student,
       "OIE-Intermediate",
       "OIE-Intermediate",
-      interaction
+      interaction,
+      Server.SPAIN
     );
   }
 
@@ -174,7 +183,13 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Advanced", "OIE-Advanced", interaction);
+    await verifySelect(
+      student,
+      "OIE-Advanced",
+      "OIE-Advanced",
+      interaction,
+      Server.SPAIN
+    );
   }
 
   @ButtonComponent({ id: "pro" })
@@ -182,7 +197,13 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "OIE-Pro", "OIE-Pro", interaction);
+    await verifySelect(
+      student,
+      "OIE-Pro",
+      "OIE-Pro",
+      interaction,
+      Server.SPAIN
+    );
   }
 
   @ButtonComponent({ id: "math" })
@@ -190,7 +211,7 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "Math", "Math", interaction);
+    await verifySelect(student, "Math1", "Math", interaction, Server.THAI);
   }
 
   // Thai buttons
