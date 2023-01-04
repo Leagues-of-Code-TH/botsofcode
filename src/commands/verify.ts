@@ -19,7 +19,14 @@ import {
   ProButton,
 } from "../lib/spainEmbeds.js";
 
-import { MathButton } from "../lib/thaiEmbeds.js";
+import {
+  CplusOne,
+  CplusThree,
+  MathButton,
+  PythonOne,
+  PythonThree,
+  PythonTwo,
+} from "../lib/thaiEmbeds.js";
 import { Server } from "../lib/types.js";
 
 const errorEmbed = new EmbedBuilder()
@@ -112,7 +119,11 @@ export class Command {
 
     const thaiRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        MathButton
+        PythonOne,
+        PythonTwo,
+        PythonThree,
+        CplusOne,
+        CplusThree
       );
 
     // Save data redis
@@ -206,13 +217,62 @@ export class Command {
     );
   }
 
-  @ButtonComponent({ id: "math" })
-  async MathButton(interaction: ButtonInteraction): Promise<void> {
+  // Thai buttons
+  @ButtonComponent({ id: "python1" })
+  async PythonOneButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "Math1", "Math", interaction, Server.THAI);
+    await verifySelect(
+      student,
+      "Python 1",
+      "Python 1",
+      interaction,
+      Server.THAI
+    );
   }
 
-  // Thai buttons
+  @ButtonComponent({ id: "python2" })
+  async PythonTwoButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(
+      student,
+      "Python 2",
+      "Python 2",
+      interaction,
+      Server.THAI
+    );
+  }
+
+  @ButtonComponent({ id: "python3" })
+  async PythonThreeButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(
+      student,
+      "Python 3",
+      "Python 3",
+      interaction,
+      Server.THAI
+    );
+  }
+
+  @ButtonComponent({ id: "cplus1" })
+  async CplusOneButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "Cplus 1", "Cplus 1", interaction, Server.THAI);
+  }
+
+  @ButtonComponent({ id: "cplus3" })
+  async CplusThreeButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "Cplus 3", "Cplus 3", interaction, Server.THAI);
+  }
 }

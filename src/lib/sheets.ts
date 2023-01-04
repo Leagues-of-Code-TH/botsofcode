@@ -10,10 +10,8 @@ function checkArray(array: any, obj: any): boolean {
 
   array.forEach((element: any) => {
     if (
-      (element.email.trim() == obj.email &&
-        element.course == obj.course &&
-        element.paid.trim() === "Yes") ||
-      element.paid.trim() == "TRUE"
+      element.email.trim().toLowerCase() == obj.email.trim().toLowerCase() &&
+      element.course == obj.course
     ) {
       console.log("Data matches!");
       console.log(element.email, ":", obj.email);
@@ -24,6 +22,7 @@ function checkArray(array: any, obj: any): boolean {
 
   if (!result) {
     console.log("No Match!", obj);
+    console.log(array);
   }
 
   return result;

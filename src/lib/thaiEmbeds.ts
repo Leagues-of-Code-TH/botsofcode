@@ -15,14 +15,32 @@ export const MathButton = new ButtonBuilder()
   .setCustomId("math");
 
 // Class Buttons
-export const PythonButton = new ButtonBuilder()
-  .setLabel("Python")
+export const PythonOne = new ButtonBuilder()
+  .setLabel("Python 1")
   .setEmoji("<:python:1025584887337590834>")
   .setStyle(ButtonStyle.Primary)
-  .setCustomId("python");
+  .setCustomId("python1");
 
-export const CplusButton = new ButtonBuilder()
-  .setLabel("C++")
+export const PythonTwo = new ButtonBuilder()
+  .setLabel("Python 2")
+  .setEmoji("<:python:1025584887337590834>")
+  .setStyle(ButtonStyle.Primary)
+  .setCustomId("python2");
+
+export const PythonThree = new ButtonBuilder()
+  .setLabel("Python 3")
+  .setEmoji("<:python:1025584887337590834>")
+  .setStyle(ButtonStyle.Primary)
+  .setCustomId("python3");
+
+export const CplusOne = new ButtonBuilder()
+  .setLabel("C++ 1")
   .setEmoji("<:cplus:1025584885034913802>")
   .setStyle(ButtonStyle.Primary)
-  .setCustomId("cplus");
+  .setCustomId("cplus1");
+
+export const CplusThree = new ButtonBuilder()
+  .setLabel("C++ 3")
+  .setEmoji("<:cplus:1025584885034913802>")
+  .setStyle(ButtonStyle.Primary)
+  .setCustomId("cplus3");
