@@ -265,7 +265,7 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "Cplus 1", "Cplus 1", interaction, Server.THAI);
+    await verifySelect(student, "C++ 1", "C++ 1", interaction, Server.THAI);
   }
 
   @ButtonComponent({ id: "cplus3" })
@@ -273,6 +273,6 @@ export class Command {
     const student = await findStudentById(interaction.user.id);
     await interaction.deferReply({ ephemeral: true });
 
-    await verifySelect(student, "Cplus 3", "Cplus 3", interaction, Server.THAI);
+    await verifySelect(student, "C++ 3", "C++ 3", interaction, Server.THAI);
   }
 }
