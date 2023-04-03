@@ -8,13 +8,18 @@ export const thaiWelcome = new EmbedBuilder()
       "คุณสามารถใช้คำสั่ง </verify:1025587115792281660> ถ้าคุณสมัครคอรส์ไว้\n" +
       "Enjoy your stay!"
   );
+
+// Class Buttons
+export const SummerCampButton = new ButtonBuilder()
+  .setLabel("Summer Camp")
+  .setStyle(ButtonStyle.Primary)
+  .setCustomId("summercamp");
+
 export const MathButton = new ButtonBuilder()
   .setLabel("Math")
   .setEmoji("<:math:1029047328260247552>")
   .setStyle(ButtonStyle.Primary)
   .setCustomId("math");
-
-// Class Buttons
 export const PythonOne = new ButtonBuilder()
   .setLabel("Python 1")
   .setEmoji("<:python:1025584887337590834>")
