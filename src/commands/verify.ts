@@ -26,6 +26,7 @@ import {
   PythonOne,
   PythonThree,
   PythonTwo,
+  SummerCampButton,
 } from "../lib/thaiEmbeds.js";
 import { Server } from "../lib/types.js";
 
@@ -119,11 +120,7 @@ export class Command {
 
     const thaiRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        PythonOne,
-        PythonTwo,
-        PythonThree,
-        CplusOne,
-        CplusThree
+        SummerCampButton
       );
 
     // Save data redis
@@ -218,6 +215,14 @@ export class Command {
   }
 
   // Thai buttons
+  @ButtonComponent({ id: "summercamp" })
+  async SummerCamp(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "", "SummerCamp2023", interaction, Server.THAI);
+  }
+
   @ButtonComponent({ id: "python1" })
   async PythonOneButton(interaction: ButtonInteraction): Promise<void> {
     const student = await findStudentById(interaction.user.id);
