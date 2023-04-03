@@ -229,4 +229,20 @@ export class Command {
       Server.THAI
     );
   }
+
+  @ButtonComponent({ id: "cplus1" })
+  async CplusOneButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "Cplus 1", "Cplus 1", interaction, Server.THAI);
+  }
+
+  @ButtonComponent({ id: "cplus3" })
+  async CplusThreeButton(interaction: ButtonInteraction): Promise<void> {
+    const student = await findStudentById(interaction.user.id);
+    await interaction.deferReply({ ephemeral: true });
+
+    await verifySelect(student, "Cplus 3", "Cplus 3", interaction, Server.THAI);
+  }
 }

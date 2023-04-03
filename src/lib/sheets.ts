@@ -22,7 +22,6 @@ function checkArray(array: any, obj: any): boolean {
 
   if (!result) {
     console.log("No Match!", obj);
-    console.log(array);
   }
 
   return result;
